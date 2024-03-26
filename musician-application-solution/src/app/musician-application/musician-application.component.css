@@ -1,0 +1,33 @@
+.selectBox {
+    position: relative;
+}
+
+.selectBox select {
+    width: 100%;
+}
+
+.overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+#checkBoxes {
+    display: none;
+    padding: .5em 1em;
+    border: 1px solid rgb(206, 212, 218);
+    border-radius: 5px;
+}
+
+#checkBoxes label {
+    display: block;
+    cursor: pointer;
+    padding: .5em .25em;
+}
+
+#checkBoxes label:hover {
+    background-color: rgb(207, 213, 219);
+}

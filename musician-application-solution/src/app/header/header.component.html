@@ -1,0 +1,9 @@
+<header  class="px-2 col d-flex flex-column align-items-center justify-content-center">
+    <img class="center-block img-fluid" id="TWFM-websitelogo" src="/assets/TWFM-websitelogo.png" alt="TWFM website logo">
+    <nav class="d-block">
+        <ul class="list-unstyled d-flex">
+            <li class="menuItem px-4 w-100" *ngFor="let item of menuItems" (click)="goto(item)">{{item}}</li>
+        </ul>
+    </nav>
+
+</header>

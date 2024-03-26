@@ -1,0 +1,8 @@
+header {
+    background: var(--clr-accent);
+    height: 180px;  
+}
+
+.menuItem {
+    cursor: pointer;
+}

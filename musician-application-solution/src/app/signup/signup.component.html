@@ -1,0 +1,41 @@
+<div class="row justify-content-center g-0 mt-5">
+    <div class="col-10 col-md-6 row justify-content-center border p-3 p-sm-5 rounded">    
+        <form (ngSubmit)="signupAttempt()" [formGroup]="signupForm">
+            <h2 class="text-center">Sign Up</h2>
+            <label for="contactName" class="form-label required-star">Contact Name</label>
+            <input type="text" id="contactName" formControlName="contactName" name="contactName" class="form-control mb-3" placeholder="Jessica"  />
+
+            <label for="email" class="form-label required-star">Email</label>
+            <input type="text" id="email" formControlName="email" name="email" class="form-control mb-3" placeholder="Jessica@example.com"  />
+
+            <label for="password" class="form-label required-star">Password</label>
+            <input type="password" id="password" formControlName="password" name="password" class="form-control mb-3" placeholder="************"  />
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary mt-2">Sign Up</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Something went wrong</h5>
+            </div>
+            <div class="modal-body">
+                <ul>
+                <li *ngFor="let error of errors">
+                    {{error}}
+                </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

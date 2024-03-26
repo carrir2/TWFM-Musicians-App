@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+
+
+:root {
+    --clr-accent: #a5534d;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+.required-star::after {
+    content: ' *';
+    color: red;
+}
+
+input:not([type=checkbox]):not([type=radio]).ng-invalid.ng-touched, textarea.ng-invalid.ng-touched, select.ng-invalid.ng-touched, .red-border {
+    border: 2px solid red;
+}

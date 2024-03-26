@@ -1,0 +1,7 @@
+.day-hover {
+    cursor: pointer;
+}
+
+.day-hover:hover {
+    color: royalblue;
+}

@@ -1,0 +1,21 @@
+<div class="card border-secondary card-width border border-3" [ngClass]="{'border-danger': status == 'declined' , 'border-success': status == 'accepted', 'border-warning': status == 'pending', 'border-light': select == 'Select' && (status == ''), 'border-dark': select != 'Select' && (status == '')}">
+  <div class="card-body">
+    <h5 class="card-title">{{name}}</h5>
+    <p class="card-text">{{description}}</p>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let link of links;" class="list-group-item"><a target="_blank" href="{{link}}">{{link}}</a></li>
+      <li class="list-group-item">Confirmed performances: {{totalPerformances}}</li>
+      <li class="list-group-item">Total selections: {{totalSelections}}</li>
+      <li class="list-group-item">Total availability: {{totalAvailability}}</li>
+      <li class="list-group-item"></li>
+    </ul>
+    <div class="d-flex flex-row justify-content-around">
+      <button [ngClass]="{ 'btn-danger': select != 'Select', 'btn-success': select == 'Select'}" (click)="toggleSelect()" class="px-1 btn btn-sm">{{select}}</button>
+      <!-- email should only be sent if the artist has been selected -->
+      <button *ngIf="select == 'Select'" (click)="notify()" class="btn btn-sm btn-warning" disabled>Notify artist</button>
+      <button *ngIf="select != 'Select'" (click)="notify()" class="btn btn-sm btn-warning">Notify artist</button>
+
+      <button (click)="info()" class="btn btn-sm btn-secondary">More info</button>
+    </div>
+  </div>
+</div>

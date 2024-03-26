@@ -1,0 +1,46 @@
+
+server:
+  port: 5000
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  datasource:
+    password: TWFMPassword
+    url: INSERT DATABASE HERE
+    username: INSERT
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        "[format_sql]": true
+    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: INSERT EMAIL
+    password: INSERT EMAIL PASS 
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: INSERT CLIENT OAUTH HERE
+            client-secret: INSERT OAUTH SECRET HERE
+            scope:
+              - email
+              - profile

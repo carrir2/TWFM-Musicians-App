@@ -1,0 +1,13 @@
+#calendar-container {
+    list-style: none;
+}
+
+.selected-day {
+    color: royalblue;
+}
+
+/* .horizontal-scrollable {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: block;
+} */

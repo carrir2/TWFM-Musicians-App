@@ -1,0 +1,234 @@
+<h1 class="px-5 text-center my-5">Musician Application Form</h1>
+<div class="px-5 row justify-content-center g-0">
+    <form class="col-10 col-md-6" (ngSubmit)="formCompletion()" [formGroup]="applicationForm">         
+        <label for="email" class="form-label required-star">Email</label>
+        <input [attr.disabled]="previous" type="text" id="email" formControlName="email" name="email" class="form-control mb-3" placeholder="Jessica@example.com" />
+        <!-- <input *ngIf="!previous" type="text" id="email" formControlName="email" name="email" class="form-control mb-3" placeholder="Jessica@example.com" /> -->
+
+        <label for="contactName" class="form-label required-star">Contact name</label>
+        <input type="text" id="contactName" formControlName="contactName" name="contactName" class="form-control mb-3" placeholder="Jessica"  />
+
+        <label for="bandName" class="form-label required-star">Band / Stage name</label>
+        <input type="text" id="bandName" formControlName="bandName" name="bandName" class="form-control mb-3" placeholder="Jessica's group" />
+
+        <div class="mb-3">
+            <label class="required-star" for="setup">Describe your setup (including the number of performers and variety of instruments)</label>
+            <textarea class="form-control" id="setup" formControlName="setup" name="setup" style="height: 120px" placeholder="my setup..." ></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label required-star">Are you open to being contacted for last minute (day before) performance opportunities at the market? (if yes, please provide your phone number below)</label>
+            <div class="row lastMinute">
+                <label>
+                    <input type="radio" value="yes" formControlName="lastMinute" name="lastMinute" id="lastMinute-yes">
+                    yes
+                </label>
+                <label>
+                    <input type="radio" value="no" formControlName="lastMinute" name="lastMinute" id="lastMinute-no">
+                    no
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Phone #</label>
+            <input type="tel" id="phoneNumber" formControlName="phoneNumber" name="phoneNumber" class="form-control mb-3" placeholder="(XXX) XXX-XXXX"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="paymentHandle" class="form-label required-star">This summer we will be trying something new thanks to suggestions from current musicians! If comfortable, please share your Venmo/CashApp/Etc handles for us to attach to tip baskets at our market info booths</label>
+            <input type="text" id="paymentHandle" formControlName="paymentHandle" name="paymentHandle" class="form-control mb-3" placeholder="venmo@troymarket"  />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label required-star">Would you like to be considered for a 1/2 day or full day performance? (full days are not guaranteed)</label>
+            <div class="row gigLength">
+                <label>
+                    <input type="radio" value="1/2 day" formControlName="gigLength" name="gigLength" id="gigLength-half">
+                    1/2 day
+                </label>
+                <label>
+                    <input type="radio" value="full day" formControlName="gigLength" name="gigLength" id="gigLength-full">
+                    full day
+                </label>
+                <label>
+                    <input type="radio" value="both" formControlName="gigLength" name="gigLength" id="gigLength-both">
+                    both
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label required-star">For half day performances, do you prefer morning or afternoon spots?</label>
+            <div class="row gigTime">
+                <label>
+                    <input type="radio" value="morning" formControlName="gigTime" name="gigTime" id="gigTime-morning">
+                    morning (9am-11am)
+                </label>
+                <label>
+                    <input type="radio" value="afternoon" formControlName="gigTime" name="gigTime" id="gigTime-afternoon">
+                    afternoon (11:30am-2pm)
+                </label>
+                <label>
+                    <input type="radio" value="both" formControlName="gigTime" name="gigTime" id="gigTime-both">
+                    both
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="required-star" (click)="showCheckboxes()" >Please select any and all dates that you are interested in playing at the Saturday market</label>
+            <div class="multipleSelection">
+                <div class="selectBox" >
+                    <select class="form-select form-select-md">
+                        <option>select a date</option>
+                    </select>
+                    <div (click)="showCheckboxes()" class="overSelect"></div>
+                </div>
+    
+                <div id="checkBoxes">
+                    <label formArrayName="availabilities" *ngFor="let date of availabilitiesFormArray.controls; let i = index">
+                        <input [formControlName]="i" type="checkbox" />
+                        {{dates[i].toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="comments">Please leave any additional comments here!</label>
+            <textarea class="form-control" id="comments" formControlName="comments" name="comments" style="height: 140px" placeholder="my comments..."></textarea>
+        </div>
+        
+        <div class="mb-3">
+            <label for="externalLinks" class="form-label">Please provide any samples you have of your music (external links)</label>
+            
+            <ng-container *ngFor="let link of extArray.value; index as idx; last as isLast">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        https://
+                    </span>
+                    <input type="text" [formControl]="link" name="externalLinks" id="externalLinks" class="form-control"/>
+                </div>
+
+                <button *ngIf="extArray.value?.length! > 1" (click)="removeExt(idx)" type="button" class="btn btn-outline-danger btn-floating my-3" data-mdb-ripple-color="dark">
+                    <i class="bi bi-dash-lg"></i>
+                </button>
+
+                <button *ngIf="isLast" (click)="addExt()" type="button" class="btn btn-outline-success btn-floating my-3" data-mdb-ripple-color="dark">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+            </ng-container>
+        </div>
+
+        <h2 class="text-center my-3">Musician Agreements</h2>
+        <div class="mb-3">
+            <label class="form-label">I understand that I will be paid $50 for a half-day (2.5 - 3 hours) and $100 for a full-day (5 hours) at the end of my performance time.</label>
+            <div class="row">
+                <label>
+                    <input type="radio" value="yes" formControlName="MA1" name="MA1" id="MA1-yes">
+                    yes
+                </label>
+                <label>
+                    <input type="radio" value="no" formControlName="MA1" name="MA1" id="MA1-no">
+                    no
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">I understand that I am able to collect tips and sell band-related merchandise, such as albums, CDs, tee shirts, and other similar items during my scheduled performance time only.</label>
+            <div class="row">
+                <label>
+                    <input type="radio" value="yes" formControlName="MA2" name="MA2" id="MA2-yes">
+                    yes
+                </label>
+                <label>
+                    <input type="radio" value="no" formControlName="MA2" name="MA2" id="MA2-no">
+                    no
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">I understand that musicians are expected to provide their individual musical instruments, equipment, or other supplies. The market does provide extension cords and access to electricity as needed.</label>
+            <div class="row">
+                <label>
+                    <input type="radio" value="yes" formControlName="MA3" name="MA3" id="MA3-yes">
+                    yes
+                </label>
+                <label>
+                    <input type="radio" value="no" formControlName="MA3" name="MA3" id="MA3-no">
+                    no
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">I understand that all cancellations by performers must be done at least 3 days prior to performance, please be courteous and give us enough time to schedule another musician. If you need to cancel, please contact the music coordinator at erin.cook@troymarket.org. If there is a chance of late arrival or cancellation the day of the performance, please contact the market as soon as possible at (518) 708-4216.</label>
+            <div class="row">
+                <label>
+                    <input type="radio" value="yes" formControlName="MA4" name="MA4" id="MA4-yes">
+                    yes
+                </label>
+                <label>
+                    <input type="radio" value="no" formControlName="MA4" name="MA4" id="MA4-no">
+                    no
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">I understand that the Market runs from 9am - 2pm, and am expected to arrive no later than 15 minutes before my scheduled starting time.</label>
+            <div class="row">
+                <label>
+                    <input type="radio" value="yes" formControlName="MA5" name="MA5" id="MA5-yes">
+                    yes
+                </label>
+                <label>
+                    <input type="radio" value="no" formControlName="MA5" name="MA5" id="MA5-no">
+                    no
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">I understand that my application is voluntary and does not guarantee acceptance or performance time with the Troy Waterfront Farmers Market.</label>
+            <div class="row">
+                <label>
+                    <input type="radio" value="yes" formControlName="MA6" name="MA6" id="MA6-yes">
+                    yes
+                </label>
+                <label>
+                    <input type="radio" value="no" formControlName="MA6" name="MA6" id="MA6-no">
+                    no
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-4 text-center">
+        <button type="submit" class="btn btn-primary">{{previous ? "Save" : "Apply"}}</button>
+        </div>
+    </form>
+  </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">{{ modalTitle }}</h5>
+            </div>
+            <div class="modal-body">
+                <ul>
+                <li *ngFor="let error of errors">
+                    {{error}}
+                </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<app-header [update]="headUpdater" (updateParent)="updateHeader()" (navEmitter)="changePage($event)"></app-header>
+<app-calendar *ngIf="currentPage == 'Calendar'"></app-calendar>
+<app-musician-application *ngIf="currentPage == 'Apply'"></app-musician-application>
+<app-login *ngIf="currentPage == 'Login'" (navEmitter)="changePage($event)"></app-login>
+<app-signup *ngIf="currentPage == 'Signup'"></app-signup>
+
+
+<router-outlet></router-outlet>

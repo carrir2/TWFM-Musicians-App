@@ -1,0 +1,49 @@
+<div class="row g-0">
+    <section class="col-4 p-0">
+        <ul id="calendar-container" class="container col-8">
+            <ng-container *ngFor="let month of dates; let i = index">
+                <li id="day-{{(i*month.length)+j+1}}" (click)="viewDay((i*month.length)+j+1)" 
+                class="align-self-center my-5" *ngFor="let date of month; let j = index;">
+                    <app-day [update]="update[i][j]" [date]="date"
+                    (scheduleSlots)="recieveSchedule($event[0], $event[1])" (updateParent)="negateUpdate()"></app-day>
+                </li>
+            </ng-container>
+        </ul>
+    </section>
+
+    <section class="col-8 p-0">
+        <ng-container *ngFor="let time of schedule;">
+            <h3 class="text-center py-4 my-2">{{time.stage}} ({{time.time}})</h3>
+            <div class="py-sm-4 d-flex flex-row gap-5 flex-nowrap overflow-auto">
+                <!-- morning stages/slots -->
+                <ng-container *ngIf="time.time == 'AM'" >
+                    <ng-container *ngFor="let item of morningQueue;">
+                        <app-artist
+                        (deselected)="deselect($event[0], $event[1])" (selected)="select($event[0], $event[1])"
+                        (email)="emailArtist($event[0], $event[1])"
+                        [select]="item.id == time.userid ? 'Deselect': 'Select'" [allInfo]="item"
+                        [name]="item.bandName" [description]="item.setup" [links]="item.externalLinks"
+                        [totalPerformances]="item.totalPerformances" [userid]="item.id" [slotid]="time.slotid"
+                        [status]="item.id == time.userid ? time.status : ''" [totalSelections]="item.totalSelections" 
+                        [totalAvailability]="item.totalAvailability"
+                        ></app-artist>
+                    </ng-container>
+                </ng-container>
+                <!-- afternoon stages/slots -->
+                <ng-container *ngIf="time.time == 'PM'">
+                    <ng-container *ngFor="let item of afternoonQueue;">
+                        <app-artist
+                        (deselected)="deselect($event[0], $event[1])" (selected)="select($event[0], $event[1])"
+                        (email)="emailArtist($event[0], $event[1])"
+                        [select]="item.id == time.userid ? 'Deselect': 'Select'" [allInfo]="item"
+                        [name]="item.bandName" [description]="item.setup" [links]="item.externalLinks"
+                        [totalPerformances]="item.totalPerformances" [userid]="item.id" [slotid]="time.slotid"
+                        [status]="item.id == time.userid ? time.status : ''" [totalSelections]="item.totalSelections" 
+                        [totalAvailability]="item.totalAvailability"
+                        ></app-artist>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </ng-container>
+    </section>
+</div>

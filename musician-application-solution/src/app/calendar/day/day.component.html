@@ -1,0 +1,5 @@
+<div (click)="viewDay()" class="card day-hover">
+    <div class="card-body">
+        {{date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}}
+    </div>
+</div>
